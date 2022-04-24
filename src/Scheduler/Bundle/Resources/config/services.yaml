@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    Alsciende\Scheduler\Bundle\:
+        resource: '../../'
+        exclude:
+            - '../../DependencyInjection/'
+
+
+    Alsciende\Scheduler\Bundle\ScheduledTasksCollection:
+        arguments:
+            - !tagged_iterator scheduler.command
