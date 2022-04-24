@@ -40,17 +40,16 @@ class ScheduleCommand extends Command
 
         $scheduler = new Scheduler($this->collector->getTasks(), new \DateTime());
 
-        $count = 0;
-        foreach ($scheduler as $datetime => $executions) {
-            foreach ($executions as $execution) {
+        foreach ($scheduler as $count => $activation) {
+            foreach ($activation->tasks as $task) {
                 $formattedLine = $formatter->formatSection(
-                    $execution->dateTime->format(\DateTimeInterface::ISO8601),
-                    $execution->task->getName()
+                    $activation->dateTime->format(\DateTimeInterface::ISO8601),
+                    $task->getName()
                 );
                 $io->writeln($formattedLine);
             }
 
-            if (++$count >= $limit - 1) {
+            if ($count >= $limit - 1) {
                 break;
             }
         }

@@ -6,7 +6,7 @@ use Alsciende\Scheduler\Schedule\DailySchedule;
 use Alsciende\Scheduler\Schedule\HourlySchedule;
 use Alsciende\Scheduler\Schedule\ScheduleInterface;
 use Alsciende\Scheduler\Scheduler;
-use Alsciende\Scheduler\TaskExecution;
+use Alsciende\Scheduler\SchedulerActivation;
 use Alsciende\Scheduler\TaskInterface;
 use PHPUnit\Framework\TestCase;
 use Tests\DateTimeFactory;
@@ -47,30 +47,29 @@ class SchedulerTest extends TestCase
 
         $expectedIndex = 0;
 
-        foreach ($scheduler as $index => $executions) {
+        foreach ($scheduler as $index => $activation) {
             // asserting that yielded values are correctly indexed
             $this->assertEquals($expectedIndex, $index);
 
+            $this->assertInstanceOf(SchedulerActivation::class, $activation);
+            /** @var SchedulerActivation $activation */
+
             $expectedExecutions = $expectedArray[$expectedIndex];
 
-            $this->assertIsArray($executions);
-            /** @var array $executions */
-
             // asserting that Scheduler returns the expected number of tasks to execute next
-            $this->assertEquals(count($expectedExecutions), count($executions));
+            $this->assertEquals(count($expectedExecutions), count($activation->tasks));
 
-            foreach ($executions as $executionIndex => $execution) {
-                $this->assertInstanceOf(TaskExecution::class, $execution);
-                /** @var TaskExecution $execution */
+            foreach ($activation->tasks as $taskIndex => $task) {
+                $this->assertInstanceOf(TaskInterface::class, $task);
 
                 $this->assertEquals(
-                    $expectedExecutions[$executionIndex][0],
-                    $execution->dateTime->format(\DateTimeInterface::ISO8601)
+                    $expectedExecutions[$taskIndex][0],
+                    $activation->dateTime->format(\DateTimeInterface::ISO8601)
                 );
 
                 $this->assertEquals(
-                    $expectedExecutions[$executionIndex][1],
-                    $execution->task->getName()
+                    $expectedExecutions[$taskIndex][1],
+                    $task->getName()
                 );
             }
 

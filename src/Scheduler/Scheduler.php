@@ -16,7 +16,7 @@ class Scheduler implements \IteratorAggregate
     /**
      * Keys are timestamps, Values are array of TaskExecutions occurring at timestamp
      * Because array_shift reindexes numerical keys but array_pop does not, this array is sorted in reverse order
-     * @var array<int, TaskExecution[]>
+     * @var array<int, SchedulerActivation>
      */
     private array $scheduleAhead = [];
 
@@ -33,34 +33,31 @@ class Scheduler implements \IteratorAggregate
     private function storeNextExecution(TaskInterface $task, \DateTimeInterface $after): void
     {
         $nextExecutionDate = $task->schedule()->next($after);
-        $this->updateSchedule(
-            $nextExecutionDate->getTimestamp(),
-            new TaskExecution($task, $nextExecutionDate)
-        );
+        $this->updateSchedule($task, $nextExecutionDate);
     }
 
-    private function updateSchedule(int $timestamp, TaskExecution $taskExecution): void
+    private function updateSchedule(TaskInterface $task, \DateTimeInterface $at): void
     {
-        $this->scheduleAhead[$timestamp] ??= [];
-        $this->scheduleAhead[$timestamp][] = $taskExecution;
+        $activation = ($this->scheduleAhead[$at->getTimestamp()] ??= new SchedulerActivation($at, []));
+        $activation->tasks[] = $task;
         krsort($this->scheduleAhead);
     }
 
     /**
-     * @return \Generator<int, TaskExecution[]>
+     * @return \Generator<int, SchedulerActivation>
      */
     public function getIterator(): Traversable
     {
         $count = 0;
 
         while ($count < self::MAX_LOOPS) {
-            $taskExecutions = array_pop($this->scheduleAhead);
+            $activation = array_pop($this->scheduleAhead);
 
-            foreach ($taskExecutions as $taskExecution) {
-                $this->storeNextExecution($taskExecution->task, $taskExecution->dateTime);
+            foreach ($activation->tasks as $task) {
+                $this->storeNextExecution($task, $activation->dateTime);
             }
 
-            yield $count++ => $taskExecutions;
+            yield $count++ => $activation;
         }
 
         throw new \OverflowException('Cannot schedule more than ' . self::MAX_LOOPS . ' task executions.');
