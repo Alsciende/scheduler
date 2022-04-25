@@ -29,7 +29,7 @@ class DailyScheduleTest extends TestCase
     {
         return [
             [0, 0, '2022-03-27T00:00:00+0100', 'Europe/Paris', '2022-03-28T00:00:00+0200'], // Daylight saving time
-            [2, 30, '2022-03-27T01:30:00+0100', 'Europe/Paris', '2022-03-27T03:30:00+0200'] // Daylight saving time
+            [2, 30, '2022-03-27T01:30:00+0100', 'Europe/Paris', '2022-03-27T03:30:00+0200'], // Daylight saving time
         ];
     }
 }

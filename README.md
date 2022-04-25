@@ -14,11 +14,12 @@ composer require alsciende/scheduler
 
 ### Setup
 
-Implement the interface `Alsciende\Scheduler\TaskInterface` in your Console commands. 
-This interface requires your class to return a `Alsciende\Scheduler\Schedule\ScheduleInterface`.
+Implement the interface `\Alsciende\Scheduler\TaskInterface` in your Console commands. 
+This interface requires your class to return a `\Alsciende\Scheduler\Schedule\ScheduleInterface`.
 The package provides 2 classes implementing that interface that you can use:
-- `Alsciende\Scheduler\Schedule\DailySchedule` for tasks that run every day at a given hour and minute
-- `Alsciende\Scheduler\Schedule\HourlySchedule` for tasks that run every hour at a given minute
+- `\Alsciende\Scheduler\Schedule\HourlySchedule` for tasks that run every hour at a given minute
+- `\Alsciende\Scheduler\Schedule\DailySchedule` for tasks that run every day at a given hour and minute
+- `\Alsciende\Scheduler\Schedule\WeeklySchedule` and the enum `\Alsciende\Scheduler\Schedule\DayOfWeek` for tasks that run every week at a given day, hour and minute
 
 ### List
 
