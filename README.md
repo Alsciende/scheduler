@@ -19,7 +19,8 @@ This interface requires your class to return a `\Alsciende\Scheduler\Schedule\Sc
 The package provides 2 classes implementing that interface that you can use:
 - `\Alsciende\Scheduler\Schedule\HourlySchedule` for tasks that run every hour at a given minute
 - `\Alsciende\Scheduler\Schedule\DailySchedule` for tasks that run every day at a given hour and minute
-- `\Alsciende\Scheduler\Schedule\WeeklySchedule` and the enum `\Alsciende\Scheduler\Schedule\DayOfWeek` for tasks that run every week at a given day, hour and minute
+- `\Alsciende\Scheduler\Schedule\WeeklySchedule` for tasks that run every week at a given day, hour and minute
+- `\Alsciende\Scheduler\Schedule\MonthlySchedule` for tasks that run every month at a given day, hour and minute
 
 ### List
 
