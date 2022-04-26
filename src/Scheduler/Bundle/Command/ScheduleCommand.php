@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Alsciende\Scheduler\Bundle\Command;
 
 use Alsciende\Scheduler\Bundle\ScheduledTasksCollection;
-use Alsciende\Scheduler\Scheduler;
+use Alsciende\Scheduler\Scheduler\Scheduler;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

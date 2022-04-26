@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Scheduler\Schedule;
+namespace Tests\Scheduler\Scheduler\Schedule;
 
 use Alsciende\Scheduler\Schedule\DailySchedule;
 use Alsciende\Scheduler\Schedule\HourlySchedule;
 use Alsciende\Scheduler\Schedule\ScheduleInterface;
-use Alsciende\Scheduler\Scheduler;
-use Alsciende\Scheduler\SchedulerActivation;
+use Alsciende\Scheduler\Scheduler\Scheduler;
+use Alsciende\Scheduler\Scheduler\SchedulerActivation;
 use Alsciende\Scheduler\TaskInterface;
 use PHPUnit\Framework\TestCase;
 use Tests\DateTimeFactory;

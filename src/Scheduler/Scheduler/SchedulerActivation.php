@@ -1,6 +1,8 @@
 <?php
 
-namespace Alsciende\Scheduler;
+namespace Alsciende\Scheduler\Scheduler;
+
+use Alsciende\Scheduler\TaskInterface;
 
 /**
  * One activation of the Scheduler with the commands to execute at a given date

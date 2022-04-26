@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Alsciende\Scheduler;
+namespace Alsciende\Scheduler\Scheduler;
 
+use Alsciende\Scheduler\TaskInterface;
 use Traversable;
 
 /**
